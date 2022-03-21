@@ -1,9 +1,9 @@
-import { CREATED } from "http-status";
-import { persistCustomer } from "./customer-business";
+import { CREATED, NOT_FOUND, OK } from "http-status";
+import { persistCustomer, persistFindAllCustomers } from "./customer-business";
 import { createCustomerDeserializer } from "./customer-deserializer";
-import { createCustomerSerializer } from "./customer-serializer";
-import { CustomerCreationRequestHandler } from "./customer-type";
-import { createCustomerValidator } from "./customer-validator";
+import { createCustomerSerializer, findAllCustomerSerializer } from "./customer-serializer";
+import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler } from "./customer-type";
+import { createCustomerValidator, findAllCustomerValidator } from "./customer-validator";
 
 const createCustomer = (): CustomerCreationRequestHandler[] => {
     return [
@@ -15,6 +15,15 @@ const createCustomer = (): CustomerCreationRequestHandler[] => {
     ]
 }
 
+const findAllCustomers = (): CustomersFindAllRequestHandler[] => {
+    return [
+        findAllCustomerValidator(),
+        persistFindAllCustomers,
+        findAllCustomerSerializer,
+        (req, res) => { res.status(CREATED).json(res.locals.customerToRespond) }
+    ]
+}
+
 export {
-    createCustomer
+    createCustomer,findAllCustomers,
 };
