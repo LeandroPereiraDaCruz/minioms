@@ -82,8 +82,36 @@ export type CustomersFindAllRequestHandler = RequestHandler<
         customerToRespond: CustomersFindAllResponse
     }
 >
-
 // ---------------------------------------------------------------------------------------------------------------------- //
 
+type CustomersFindPk = {
+    uuid: string;
+}
 
-;
+type CustomersFindResponse = {
+    uuid: string;
+    name: string;
+    document: {
+        cpf?: string;
+        cnpj?: string;
+    },
+    contact: {
+        email: string;
+        phone?: string;
+    }
+    createdAt: string;
+    updatedAt: string;
+}
+
+export type CustomersFindRequestHandler = RequestHandler<
+    CustomersFindPk, // path params
+    CustomersFindResponse | CustomerError,  // response
+    CustomersFindPk, // request
+    {}, // query params
+    {
+        customerToFind: CustomersFindPk,
+        customerFind: CustomerAttributes,
+        customerError: CustomerError,
+        customerToRespond: CustomersFindResponse
+    }
+>;

@@ -1,5 +1,5 @@
 import { Customer } from "./customer-model";
-import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler, CustomersFindRequestHandler } from "./customer-type";
 
 const persistCustomer: CustomerCreationRequestHandler = async (req, res, next) => {
     try {
@@ -24,6 +24,21 @@ const persistFindAllCustomers: CustomersFindAllRequestHandler = async (req, res,
     }
 }
 
+const persistFindCustomers: CustomersFindRequestHandler = async (req, res, next) => {
+    try {
+        const { customerToFind } = res.locals;
+        const users = await Customer.findByPk(customerToFind.uuid);
+        if(users != null){
+            res.locals.customerFind = users;
+        }
+        next();
+    } catch(error) {
+        next(error);
+    }
+}
+
 export {
-    persistCustomer,persistFindAllCustomers
+    persistCustomer,
+    persistFindAllCustomers,
+    persistFindCustomers
 }

@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler, CustomersFindRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -40,7 +40,43 @@ const findAllCustomerSerializer: CustomersFindAllRequestHandler = (req, res, nex
     next();
 }
 
+const findCustomerSerializer: CustomersFindRequestHandler = (req, res, next) => {
+    
+    const { customerFind } = res.locals;
+    if(customerFind != undefined){
+        res.locals.customerToRespond = {
+        uuid: customerFind.uuid,
+        name: customerFind.name,
+        contact: {
+            email: customerFind.email,
+            phone: customerFind.phone
+        },
+        document: {
+            cpf: customerFind.cpf,
+            cnpj: customerFind.cnpj
+        },
+        createdAt: customerFind.createdAt.toISOString(),
+        updatedAt: customerFind.updatedAt.toISOString()
+        } 
+    } else {
+        res.locals.customerError = {
+            statusCode: 404,
+            error: 'Not Found',
+            message: 'Validation failed',
+            validation: {
+                params: {
+                    source: 'params',
+                    keys: ['uuid'],
+                    message: 'Customer Not Found!'
+                }
+            }
+        }
+    }
+    next();
+}
+
 export {
     createCustomerSerializer,
     findAllCustomerSerializer,
+    findCustomerSerializer
 }

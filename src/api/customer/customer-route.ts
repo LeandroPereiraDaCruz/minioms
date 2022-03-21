@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 import { createCustomer, findAllCustomers, findCustomers } from './customer-controller';
 
 const route = Router();
