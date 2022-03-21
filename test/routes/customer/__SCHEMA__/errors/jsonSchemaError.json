@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "required": [
+        "statusCode",
+        "error",
+        "message",
+        "validation"
+    ],
+    "properties": {
+        "statusCode": {
+            "$id": "#/properties/statusCode",
+            "type": "integer"
+        },
+        "error": {
+            "$id": "#/properties/error",
+            "type": "string"
+        },
+        "message": {
+            "$id": "#/properties/message",
+            "type": "string"
+        },
+        "validation": {
+            "$id": "#/properties/validation",
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "$id": "#/properties/validation/properties/body",
+                    "type": "object",
+                    "required": [
+                        "source",
+                        "keys",
+                        "message"
+                    ],
+                    "properties": {
+                        "source": {
+                            "$id": "#/properties/validation/properties/body/properties/source",
+                            "type": "string"
+                        },
+                        "keys": {
+                            "$id": "#/properties/validation/properties/body/properties/keys",
+                            "type": "array",
+                            "additionalItems": false,
+                            "items": {
+                                "$id": "#/properties/validation/properties/body/properties/keys/items",
+                                "anyOf": [
+                                    {
+                                        "$id": "#/properties/validation/properties/body/properties/keys/items/anyOf/0",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "message": {
+                            "$id": "#/properties/validation/properties/body/properties/message",
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
