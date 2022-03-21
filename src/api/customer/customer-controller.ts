@@ -20,7 +20,13 @@ const findAllCustomers = (): CustomersFindAllRequestHandler[] => {
         findAllCustomerValidator(),
         persistFindAllCustomers,
         findAllCustomerSerializer,
-        (req, res) => { res.status(CREATED).json(res.locals.customerToRespond) }
+        (req, res) => { 
+            if(res.locals.customerToRespond == undefined){
+                res.status(NOT_FOUND).json(res.locals.customerError)
+            } else {
+                res.status(OK).json(res.locals.customerToRespond)
+            }
+        }
     ]
 }
 
