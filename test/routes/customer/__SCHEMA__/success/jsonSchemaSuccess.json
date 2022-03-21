@@ -1,0 +1,121 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "required": [
+        "meta",
+        "records"
+    ],
+    "properties": {
+        "meta": {
+            "$id": "#/properties/meta",
+            "type": "object",
+            "required": [
+                "server",
+                "version",
+                "offset",
+                "limit",
+                "recordCount"
+            ],
+            "properties": {
+                "server": {
+                    "$id": "#/properties/meta/properties/server",
+                    "type": "string"
+                },
+                "version": {
+                    "$id": "#/properties/meta/properties/version",
+                    "type": "string"
+                },
+                "offset": {
+                    "$id": "#/properties/meta/properties/offset",
+                    "type": "integer"
+                },
+                "limit": {
+                    "$id": "#/properties/meta/properties/limit",
+                    "type": "integer"
+                },
+                "recordCount": {
+                    "$id": "#/properties/meta/properties/recordCount",
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": true
+        },
+        "records": {
+            "$id": "#/properties/records",
+            "type": "array",
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/records/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/records/items/anyOf/0",
+                        "type": "object",
+                        "required": [
+                            "uuid",
+                            "name",
+                            "document",
+                            "contact",
+                            "createdAt",
+                            "updatedAt"
+                        ],
+                        "properties": {
+                            "uuid": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/uuid",
+                                "type": "string"
+                            },
+                            "name": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/name",
+                                "type": "string"
+                            },
+                            "document": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/document",
+                                "type": "object",
+                                "properties": {
+                                    "cnpj": {
+                                        "$id": "#/properties/records/items/anyOf/0/properties/document/properties/cnpj",
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "$id": "#/properties/records/items/anyOf/0/properties/document/properties/cpf",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "contact": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/contact",
+                                "type": "object",
+                                "required": [
+                                    "email",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "$id": "#/properties/records/items/anyOf/0/properties/contact/properties/email",
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "$id": "#/properties/records/items/anyOf/0/properties/contact/properties/phone",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "createdAt": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/createdAt",
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "$id": "#/properties/records/items/anyOf/0/properties/updatedAt",
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}
