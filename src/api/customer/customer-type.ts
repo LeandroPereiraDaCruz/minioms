@@ -45,4 +45,45 @@ export type CustomerCreationRequestHandler = RequestHandler<
         customerCreated: CustomerAttributes,
         customerToRespond: CustomerResponse
     }
->;
+>
+
+// ---------------------------------------------------------------------------------------------------------------------- //
+
+type CustomerError = {
+    statusCode: number;
+    error: string;
+    message: string;
+    validation: {
+        params: {
+            source: string;
+            keys: Array<string>;
+            message: string;
+        }
+    }
+}
+
+type CustomerFindAll = Array<CustomerAttributes>;
+
+type CustomersFindAllResponse = Array<CustomerAttributes>
+
+type CustomerFindAllQueryParms = {
+    offset: string;
+    limit: string;
+}
+
+export type CustomersFindAllRequestHandler = RequestHandler<
+    {}, // path params
+    CustomersFindAllResponse | CustomerError,  // response
+    {}, // request
+    CustomerFindAllQueryParms, // query params
+    {
+        customerToFindAll: CustomerFindAll,
+        customerError: CustomerError,
+        customerToRespond: CustomersFindAllResponse
+    }
+>
+
+// ---------------------------------------------------------------------------------------------------------------------- //
+
+
+;
