@@ -4,7 +4,7 @@ const successResponseMiddlware =  mung.json((body, req, res) => {
     const records = Array.isArray(body) ? body : [body];
     const { offset = 0, limit = 50 } = req.query;
     const meta = {
-        version: '1.1.2',
+        version: '1.2.0',
         server: hostname(),
         recordCount: records.length,
         limit,
