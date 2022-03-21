@@ -8,7 +8,7 @@ import jsonSchemaSuccessGet from './__SCHEMA__/success/jsonSchemaSuccessGet.json
 // https://www.jsonschema.net/home
 describe('Route GET /v1/customers/', function() {
 
-	it('Return HTTP status Code 200 when success', (done) => {
+	it('Return HTTP status code 200 when success', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers/')
 	            .end((err, res) => {
@@ -18,7 +18,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 200 when Offset is informed', (done) => {
+	it('Return HTTP status code 200 when Offset is informed', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?offset=1')
 	            .end((err, res) => {
@@ -28,7 +28,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 200 when limit is informed', (done) => {
+	it('Return HTTP status code 200 when limit is informed', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?limit=1')
 	            .end((err, res) => {
@@ -38,7 +38,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 200 when Offset and Limit are informed', (done) => {
+	it('Return HTTP status code 200 when Offset and Limit are informed', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?limit=2&offset=1')
 	            .end((err, res) => {
@@ -48,7 +48,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 400 when Limit is not a number', (done) => {
+	it('Return HTTP status code 400 when Limit is not a number', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?limit=1a')
 	            .end((err, res) => {
@@ -66,7 +66,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 400 when Limit is less to 1', (done) => {
+	it('Return HTTP status code 400 when Limit is less to 1', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?limit=0')
 	            .end((err, res) => {
@@ -84,7 +84,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 400 when Offset is not a number', (done) => {
+	it('Return HTTP status code 400 when Offset is not a number', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?offset=1a')
 	            .end((err, res) => {
@@ -102,7 +102,7 @@ describe('Route GET /v1/customers/', function() {
 	            });
 	    });
 
-	it('Returns HTTP status code 400 when Offset exceeds the number of records', (done) => {
+	it('Return HTTP status code 404 when Offset exceeds the number of records', (done) => {
 	        chai.request(server)
 	            .get('/v1/customers?limit=2&offset=6')
 	            .end((err, res) => {
