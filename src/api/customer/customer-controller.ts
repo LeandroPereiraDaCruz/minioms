@@ -5,7 +5,6 @@ import { createCustomerSerializer, findAllCustomerSerializer, findCustomerSerial
 import { CustomerCreationRequestHandler, CustomersFindAllRequestHandler, CustomersFindRequestHandler} from "./customer-type";
 import { createCustomerValidator, findAllCustomerValidator, findCustomerValidator } from "./customer-validator";
 
-
 const createCustomer = (): CustomerCreationRequestHandler[] => {
     return [
         createCustomerValidator(),
@@ -37,7 +36,13 @@ const findCustomers = (): CustomersFindRequestHandler[] => {
         findCustomersDeserializer,
         persistFindCustomers,
         findCustomerSerializer,
-        (req, res) => { res.status(CREATED).json(res.locals.customerToRespond) }
+        (req, res) => { 
+            if(res.locals.customerToRespond == undefined){
+                res.status(NOT_FOUND).json(res.locals.customerError)
+            } else {
+                res.status(OK).json(res.locals.customerToRespond)
+            }
+        }
     ]
 }
 
