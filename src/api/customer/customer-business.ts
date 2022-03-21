@@ -16,7 +16,7 @@ const persistFindAllCustomers: CustomersFindAllRequestHandler = async (req, res,
     try {       
         const off = req.query.offset
         const lim = req.query.limit
-        const users:Customer[] = await Customer.findAll({limit: parseInt(lim), offset: parseInt(off)});
+        const users:Customer[] = await Customer.findAll({limit: parseInt(lim) || undefined, offset: parseInt(off) || undefined});
         res.locals.customerToFindAll = users;
         next();
     } catch(error) {
