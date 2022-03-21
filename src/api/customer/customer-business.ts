@@ -13,8 +13,10 @@ const persistCustomer: CustomerCreationRequestHandler = async (req, res, next) =
 
 const persistFindAllCustomers: CustomersFindAllRequestHandler = async (req, res, next) => {
     
-    try {  
-        const users:Customer[] = await Customer.findAll();
+    try {       
+        const off = req.query.offset
+        const lim = req.query.limit
+        const users:Customer[] = await Customer.findAll({limit: parseInt(lim), offset: parseInt(off)});
         res.locals.customerToFindAll = users;
         next();
     } catch(error) {
