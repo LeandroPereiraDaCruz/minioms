@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, CustomerFindAllRequestHandler, CustomerFindByIdRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -19,6 +19,55 @@ const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next
     next();
 }
 
+const findAllCustomerSerializer: CustomerFindAllRequestHandler = (req, res, next) => {
+    const { customersFound, limit } = res.locals;
+    
+    customersFound.forEach(customer => {
+        res.locals.customerToRespond.push({
+            uuid: customer.uuid,
+            name: customer.name,
+            contact: {
+                email: customer.email,
+                phone: customer.phone
+            },
+            document: {
+                cpf: customer.cpf,
+                cnpj: customer.cnpj
+            },
+            createdAt: customer.createdAt.toISOString(),
+            updatedAt: customer.updatedAt.toISOString()
+        })
+    })
+
+    res.locals.offset = customersFound.length;
+    res.locals.limit = limit;
+    next();
+}
+
+const findByIdCustomerSerializer: CustomerFindByIdRequestHandler = (req, res, next) => {
+    const { customerFound } = res.locals;
+    if( customerFound ){
+        res.locals.customerToRespond = {
+            uuid: customerFound.uuid,
+            name: customerFound.name,
+            contact: {
+                email: customerFound.email,
+                phone: customerFound.phone
+            },
+            document: {
+                cpf: customerFound.cpf,
+                cnpj: customerFound.cnpj
+            },
+            createdAt: customerFound.createdAt.toISOString(),
+            updatedAt: customerFound.updatedAt.toISOString()
+        }
+    }
+    
+    next();
+}
+
 export {
-    createCustomerSerializer
+    createCustomerSerializer,
+    findAllCustomerSerializer,
+    findByIdCustomerSerializer
 }
