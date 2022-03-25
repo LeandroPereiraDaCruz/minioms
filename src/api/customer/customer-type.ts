@@ -59,3 +59,14 @@ export type GetCustomersAllRequestHandler = RequestHandler<
         customerToRespond: CustomerResponse[];      
     }
 >;
+
+export type GetCustomerByIdRequestHandler = RequestHandler<
+    { id: string },
+    CustomerResponse,
+    {},
+    {},
+    {
+        getCustomer: CustomerAttributes | null;
+        customerToRespond: CustomerResponse;
+    }
+>;

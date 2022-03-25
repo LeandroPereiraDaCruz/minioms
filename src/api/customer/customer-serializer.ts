@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler, GetCustomersAllRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, GetCustomerByIdRequestHandler, GetCustomersAllRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -61,9 +61,33 @@ const getAllCustomersSerializer: GetCustomersAllRequestHandler = (req, res, next
     next();
 };
 
+const getCustomerByIdSerializer: GetCustomerByIdRequestHandler = (req, res, next) => {
+    
+    const customer = res.locals.getCustomer;
+
+    if (customer) {
+        res.locals.customerToRespond = {
+            uuid: customer.uuid,
+            name: customer.name,
+            contact: {
+              email: customer.email,
+              phone: customer.phone,
+            },
+            document: {
+              cpf: customer.cpf,
+              cnpj: customer.cnpj,
+            },
+            createdAt: customer.createdAt.toISOString(),
+            updatedAt: customer.updatedAt.toISOString(),
+        };
+    }
+    
+    next();
+};
 
 export {
     createCustomerSerializer, 
     paginationSerializer,
-    getAllCustomersSerializer
+    getAllCustomersSerializer,
+    getCustomerByIdSerializer
 }
