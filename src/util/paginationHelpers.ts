@@ -1,23 +1,14 @@
-import { CustomerCreationRequestHandler, GetCustomersAllRequestHandler } from "./customer-type";
+import { GetCustomersAllRequestHandler } from "../api/customer/customer-type";
 
-const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
-    const { customerCreated } = res.locals;
-    res.locals.customerToRespond = {
-        uuid: customerCreated.uuid,
-        name: customerCreated.name,
-        contact: {
-            email: customerCreated.email,
-            phone: customerCreated.phone
-        },
-        document: {
-            cpf: customerCreated.cpf,
-            cnpj: customerCreated.cnpj
-        },
-        createdAt: customerCreated.createdAt.toISOString(),
-        updatedAt: customerCreated.updatedAt.toISOString()
-    }
-    next();
-}
+export type PaginationParams = {
+    offset: string;
+    limit: string;
+};
+  
+export type PaginationParamsSerializer = {
+    offset: number;
+    limit: number;
+};
 
 const paginationSerializer: GetCustomersAllRequestHandler = (req, res, next) => {
     const PaginationParams = req.query;
@@ -60,10 +51,3 @@ const getAllCustomersSerializer: GetCustomersAllRequestHandler = (req, res, next
 
     next();
 };
-
-
-export {
-    createCustomerSerializer, 
-    paginationSerializer,
-    getAllCustomersSerializer
-}
