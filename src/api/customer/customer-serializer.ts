@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, GetAllCustomerRequestHandler, GetCustomerByIdRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -19,6 +19,74 @@ const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next
     next();
 }
 
+const paginationSerializer: GetAllCustomerRequestHandler = (req, res, next) => {
+    const queryParams = req.query;
+    let offset = 0;
+    let limit = 50;
+
+    if (queryParams.offset) {
+        offset = Number(queryParams.offset);
+    }
+
+    if (queryParams.limit) {
+        limit = Number(queryParams.limit);
+    }
+
+    res.locals.paginationParamsSerializer = { offset, limit };
+
+    next();
+};
+
+const getAllCustomersSerializer: GetAllCustomerRequestHandler = (req, res, next) => {
+    const allCustomers = res.locals.getCustomer;
+    res.locals.customersToRespond = [];
+
+    allCustomers.map((customer) => {
+        res.locals.customersToRespond.push({
+            uuid: customer.uuid,
+            name: customer.name,
+            contact: {
+                email: customer.email,
+                phone: customer.phone,
+            },
+            document: {
+                cpf: customer.cpf,
+                cnpj: customer.cnpj,
+            },
+            createdAt: customer.createdAt.toISOString(),
+            updatedAt: customer.updatedAt.toISOString(),
+        });
+    });
+
+    next();
+};
+
+const getCustomerSerializer: GetCustomerByIdRequestHandler = (req, res, next) => {
+    const customer = res.locals.getCustomer;
+  
+    if (customer) {
+      res.locals.customerToRespond = {
+        uuid: customer.uuid,
+        name: customer.name,
+        contact: {
+          email: customer.email,
+          phone: customer.phone,
+        },
+        document: {
+          cpf: customer.cpf,
+          cnpj: customer.cnpj,
+        },
+        createdAt: customer.createdAt.toISOString(),
+        updatedAt: customer.updatedAt.toISOString(),
+      };
+    }
+  
+    next();
+  };
+
 export {
-    createCustomerSerializer
+    createCustomerSerializer,
+    paginationSerializer,
+    getAllCustomersSerializer,
+    getCustomerSerializer
 }

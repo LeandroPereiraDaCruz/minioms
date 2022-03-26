@@ -33,6 +33,16 @@ type CustomerResponse = CustomerCreationRequest & {
     updatedAt: string;
 }
 
+type PaginationParams = {
+    offset: string;
+    limit: string;
+};
+
+export type PaginationParamsSerializer = {
+    offset: number;
+    limit: number;
+};
+
 export abstract class CustomerModel extends Model<CustomerAttributes, CustomerCreationAttributes>{};
 
 export type CustomerCreationRequestHandler = RequestHandler<
@@ -45,4 +55,27 @@ export type CustomerCreationRequestHandler = RequestHandler<
         customerCreated: CustomerAttributes,
         customerToRespond: CustomerResponse
     }
+>;
+
+export type GetAllCustomerRequestHandler = RequestHandler<
+  {}, // path params
+  CustomerResponse[], // response
+  {}, // request
+  PaginationParams, // query params
+  {
+    paginationParamsSerializer: PaginationParamsSerializer;
+    getCustomer: CustomerAttributes[];
+    customersToRespond: CustomerResponse[];
+  }
+>;
+
+export type GetCustomerByIdRequestHandler = RequestHandler<
+  { id: string }, // path params
+  CustomerResponse, // response
+  {}, // request
+  {}, // query params
+  {
+    getCustomer: CustomerAttributes | null;
+    customerToRespond: CustomerResponse;
+  }
 >;

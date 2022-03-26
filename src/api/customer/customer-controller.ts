@@ -1,9 +1,9 @@
-import { CREATED } from "http-status";
-import { persistCustomer } from "./customer-business";
+import { CREATED, NOT_FOUND, OK } from "http-status";
+import { persistCustomer, getAllCustomersBusiness, getCustomerByIdBusiness } from "./customer-business";
 import { createCustomerDeserializer } from "./customer-deserializer";
-import { createCustomerSerializer } from "./customer-serializer";
-import { CustomerCreationRequestHandler } from "./customer-type";
-import { createCustomerValidator } from "./customer-validator";
+import { createCustomerSerializer, getAllCustomersSerializer, getCustomerSerializer, paginationSerializer, } from "./customer-serializer";
+import { CustomerCreationRequestHandler, GetAllCustomerRequestHandler, GetCustomerByIdRequestHandler, } from "./customer-type";
+import { createCustomerValidator, getAllCustomersValidator, getCustomerValidator, } from "./customer-validator";
 
 const createCustomer = (): CustomerCreationRequestHandler[] => {
     return [
@@ -15,6 +15,35 @@ const createCustomer = (): CustomerCreationRequestHandler[] => {
     ]
 }
 
+const getAllCustomers = (): GetAllCustomerRequestHandler[] => {
+    return [
+        getAllCustomersValidator(),
+        paginationSerializer,
+        getAllCustomersBusiness,
+        getAllCustomersSerializer,
+        (req, res) => {
+            res.status(OK).json(res.locals.customersToRespond);
+        },
+    ];
+};
+
+const getCustomersById = (): GetCustomerByIdRequestHandler[] => {
+    return [
+        getCustomerValidator(),
+        getCustomerByIdBusiness,
+        getCustomerSerializer,
+        (req, res) => {
+            if (!res.locals.customerToRespond) {
+                res.status(NOT_FOUND).json(res.locals.customerToRespond);
+            } else {
+                res.status(OK).json(res.locals.customerToRespond);
+            }
+        },
+    ];
+};
+
 export {
-    createCustomer
+    createCustomer,
+    getAllCustomers,
+    getCustomersById
 };
