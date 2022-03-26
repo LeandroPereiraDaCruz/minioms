@@ -1,5 +1,5 @@
 import { Customer } from "./customer-model";
-import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, GetCustomersRequestHandler } from "./customer-type";
 
 const persistCustomer: CustomerCreationRequestHandler = async (req, res, next) => {
     try {
@@ -11,6 +11,18 @@ const persistCustomer: CustomerCreationRequestHandler = async (req, res, next) =
     }
 }
 
+const getCustomersBusiness: GetCustomersRequestHandler = async (req, res, next) => {
+    try {
+        const { offset, limit } = res.locals.paginationParamsSerializer;
+        res.locals.getCustomer = await Customer.findAll({ offset, limit });
+        next();
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 export {
-    persistCustomer
+    persistCustomer,
+    getCustomersBusiness
 }
