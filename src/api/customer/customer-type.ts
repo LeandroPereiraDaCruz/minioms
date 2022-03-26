@@ -59,3 +59,14 @@ export type GetCustomersRequestHandler = RequestHandler<
         customerToRespond: CustomerResponse[];      
     }
 >;
+
+export type GetCustomerByUuidRequestHandler = RequestHandler<
+    { customerUuid: string },
+    CustomerResponse,
+    {},
+    {},
+    {
+        getCustomer: CustomerAttributes | null;
+        customerToRespond: CustomerResponse;
+    }
+>;
