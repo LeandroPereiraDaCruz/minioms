@@ -27,7 +27,7 @@ type CustomerCreationRequest = {
     }
 }
 
-type CustomerResponse = CustomerCreationRequest & {
+export type CustomerResponse = CustomerCreationRequest & {
     uuid: string;
     createdAt: string;
     updatedAt: string;
