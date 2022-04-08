@@ -9,7 +9,8 @@
     "logs": "pm2 logs",
     "build": "rm -rf ./dist && tsc --build",
     "dev": "ts-node-dev src/index.ts",
-    "test": "mocha -r ts-node/register './test/**/*.spec.ts'"
+    "test": "mocha -r ts-node/register './test/**/*.spec.ts'",
+    "test:coverage": "nyc mocha -r ts-node/register './test/**/*.spec.ts'"
   },
   "keywords": [
     "OMS"
@@ -28,6 +29,7 @@
     "chai-http": "^4.3.0",
     "chai-json-schema": "^1.5.1",
     "mocha": "^9.2.2",
+    "nyc": "^15.1.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.5"
   },
