@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { Model } from "sequelize-typescript"
 import { Optional } from "sequelize/types"
+import { Pagination, PaginationSerializer } from '../../interface/pagination.interface'
 
 type CustomerAttributes = {
     uuid: string;
@@ -44,5 +45,28 @@ export type CustomerCreationRequestHandler = RequestHandler<
         customerToCreate: CustomerCreationAttributes
         customerCreated: CustomerAttributes,
         customerToRespond: CustomerResponse
+    }
+>;
+
+export type GetCustomersAllRequestHandler = RequestHandler<
+    {},
+    CustomerResponse[],
+    {},
+    Pagination,
+    {
+        pagination: PaginationSerializer;
+        getCustomer: CustomerAttributes[];
+        customerToRespond: CustomerResponse[];      
+    }
+>;
+
+export type GetCustomerByIdRequestHandler = RequestHandler<
+    { id: string },
+    CustomerResponse,
+    {},
+    {},
+    {
+        getCustomer: CustomerAttributes | null;
+        customerToRespond: CustomerResponse;
     }
 >;
