@@ -45,4 +45,73 @@ export type CustomerCreationRequestHandler = RequestHandler<
         customerCreated: CustomerAttributes,
         customerToRespond: CustomerResponse
     }
+>
+
+// ---------------------------------------------------------------------------------------------------------------------- //
+
+type CustomerError = {
+    statusCode: number;
+    error: string;
+    message: string;
+    validation: {
+        params: {
+            source: string;
+            keys: Array<string>;
+            message: string;
+        }
+    }
+}
+
+type CustomerFindAll = Array<CustomerAttributes>;
+
+type CustomersFindAllResponse = Array<CustomerAttributes>
+
+type CustomerFindAllQueryParms = {
+    offset: string;
+    limit: string;
+}
+
+export type CustomersFindAllRequestHandler = RequestHandler<
+    {}, // path params
+    CustomersFindAllResponse | CustomerError,  // response
+    {}, // request
+    CustomerFindAllQueryParms, // query params
+    {
+        customerToFindAll: CustomerFindAll,
+        customerError: CustomerError,
+        customerToRespond: CustomersFindAllResponse
+    }
+>
+// ---------------------------------------------------------------------------------------------------------------------- //
+
+type CustomersFindPk = {
+    uuid: string;
+}
+
+type CustomersFindResponse = {
+    uuid: string;
+    name: string;
+    document: {
+        cpf?: string;
+        cnpj?: string;
+    },
+    contact: {
+        email: string;
+        phone?: string;
+    }
+    createdAt: string;
+    updatedAt: string;
+}
+
+export type CustomersFindRequestHandler = RequestHandler<
+    CustomersFindPk, // path params
+    CustomersFindResponse | CustomerError,  // response
+    CustomersFindPk, // request
+    {}, // query params
+    {
+        customerToFind: CustomersFindPk,
+        customerFind: CustomerAttributes,
+        customerError: CustomerError,
+        customerToRespond: CustomersFindResponse
+    }
 >;

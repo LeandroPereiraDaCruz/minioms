@@ -1,8 +1,8 @@
 import { expect, should } from 'chai';
 import { BAD_REQUEST, CONFLICT, CREATED } from 'http-status';
 import { chai, server } from '../../index.spec';
-import jsonSchemaError from './__SCHEMA__/jsonSchemaError.json';
-import jsonSchemaSuccess from './__SCHEMA__/jsonSchemaSuccess.json';
+import jsonSchemaError from './__SCHEMA__/errors/jsonSchemaError.json';
+import jsonSchemaSuccess from './__SCHEMA__/success/jsonSchemaSuccess.json';
 // https://www.jsonschema.net/home
 
 describe('Route POST /v1/customers', function() {

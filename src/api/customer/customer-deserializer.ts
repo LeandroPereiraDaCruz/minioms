@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, CustomersFindRequestHandler, } from "./customer-type";
 
 const createCustomerDeserializer: CustomerCreationRequestHandler  = (req, res, next) => {
     res.locals.customerToCreate = {
@@ -9,6 +9,12 @@ const createCustomerDeserializer: CustomerCreationRequestHandler  = (req, res, n
     next();
 }
 
+const findCustomersDeserializer: CustomersFindRequestHandler  = (req, res, next) => {
+    res.locals.customerToFind = {uuid: req.params.uuid}
+    next();
+}
+
 export {
-    createCustomerDeserializer
+    createCustomerDeserializer,
+    findCustomersDeserializer
 }

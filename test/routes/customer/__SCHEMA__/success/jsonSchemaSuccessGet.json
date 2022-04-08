@@ -1,0 +1,171 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#", 
+    "$id": "https://example.com/object1647625824.json", 
+    "title": "Root", 
+    "type": "object",
+    "required": [
+        "meta",
+        "records"
+    ],
+    "properties": {
+        "meta": {
+            "$id": "#root/meta", 
+            "title": "Meta", 
+            "type": "object",
+            "required": [
+                "version",
+                "server",
+                "recordCount",
+                "limit",
+                "offset"
+            ],
+            "properties": {
+                "version": {
+                    "$id": "#root/meta/version", 
+                    "title": "Version", 
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "0.0.1"
+                    ],
+                    "pattern": "^.*$"
+                },
+                "server": {
+                    "$id": "#root/meta/server", 
+                    "title": "Server", 
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "DESKTOP-9I4J22I"
+                    ],
+                    "pattern": "^.*$"
+                },
+                "recordCount": {
+                    "$id": "#root/meta/recordCount", 
+                    "title": "Recordcount", 
+                    "type": "integer",
+                    "examples": [
+                        5
+                    ],
+                    "default": 0
+                },
+                "limit": {
+                    "$id": "#root/meta/limit", 
+                    "title": "Limit", 
+                    "type": "integer",
+                    "examples": [
+                        50
+                    ],
+                    "default": 0
+                },
+                "offset": {
+                    "$id": "#root/meta/offset", 
+                    "title": "Offset", 
+                    "type": "integer",
+                    "examples": [
+                        0
+                    ],
+                    "default": 0
+                }
+            }
+        }
+,
+        "records": {
+            "$id": "#root/records", 
+            "title": "Records", 
+            "type": "array",
+            "default": [],
+            "items":{
+                "$id": "#root/records/items", 
+                "title": "Items", 
+                "type": "object",
+                "required": [
+                    "uuid",
+                    "name",
+                    "cpf",
+                    "cnpj",
+                    "email",
+                    "phone",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "properties": {
+                    "uuid": {
+                        "$id": "#root/records/items/uuid", 
+                        "title": "Uuid", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "27456bb4-d1f2-4e88-a546-7eeb2eaa1f6b"
+                        ],
+                        "pattern": "^.*$"
+                    },
+                    "name": {
+                        "$id": "#root/records/items/name", 
+                        "title": "Name", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "John Doe"
+                        ],
+                        "pattern": "^.*$"
+                    },
+                    "cpf": {
+                        "$id": "#root/records/items/cpf", 
+                        "title": "Cpf", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "99999999991"
+                        ],
+                        "pattern": "^.*$"
+                    },
+                    "cnpj": {
+                        "$id": "#root/records/items/cnpj", 
+                        "title": "Cnpj", 
+                        "type": "null",
+                        "default": null
+                    },
+                    "email": {
+                        "$id": "#root/records/items/email", 
+                        "title": "Email", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "johndoe@email.com"
+                        ],
+                        "pattern": "^.*$"
+                    },
+                    "phone": {
+                        "$id": "#root/records/items/phone", 
+                        "title": "Phone", 
+                        "type": "null",
+                        "default": null
+                    },
+                    "createdAt": {
+                        "$id": "#root/records/items/createdAt", 
+                        "title": "Createdat", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "2022-03-18T17:37:34.000Z"
+                        ],
+                        "pattern": "^.*$"
+                    },
+                    "updatedAt": {
+                        "$id": "#root/records/items/updatedAt", 
+                        "title": "Updatedat", 
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "2022-03-18T17:37:34.000Z"
+                        ],
+                        "pattern": "^.*$"
+                    }
+                }
+            }
+
+        }
+    }
+}

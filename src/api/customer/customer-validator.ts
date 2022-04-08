@@ -34,6 +34,31 @@ const createCustomerValidator = () => {
     });
 };
 
+const findAllCustomerValidator = () => {
+   return celebrate({
+       [Segments.QUERY]: Joi.object().keys({
+           offset: Joi
+           .number(),
+           limit: Joi
+           .number()
+           .min(1)
+       })
+   });
+};
+
+const findCustomerValidator = () => {
+    return celebrate({
+        [Segments.PARAMS]: Joi.object().keys({
+            uuid: Joi
+                .string()
+                .length(36)
+                .required()
+        })
+    });
+};
+
 export {
-    createCustomerValidator
+    createCustomerValidator,
+    findAllCustomerValidator,
+    findCustomerValidator
 };
