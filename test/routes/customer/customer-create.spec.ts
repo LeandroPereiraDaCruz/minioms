@@ -3,7 +3,6 @@ import { BAD_REQUEST, CONFLICT, CREATED } from 'http-status';
 import { chai, server } from '../../index.spec';
 import jsonSchemaError from './__SCHEMA__/jsonSchemaError.json';
 import jsonSchemaSuccess from './__SCHEMA__/jsonSchemaSuccess.json';
-// https://www.jsonschema.net/home
 
 describe('Route POST /v1/customers', function() {
     it('Return HTTP Status Code 400 when body is missing', (done) => {

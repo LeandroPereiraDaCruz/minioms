@@ -1,4 +1,6 @@
 import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomersFindAllRequestHandler } from "./customer-type";
+import { CustomersFindRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -19,6 +21,48 @@ const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next
     next();
 }
 
+const findCustomerSerializer: CustomersFindRequestHandler = (req, res, next) => {
+    
+    const { customerFind } = res.locals;
+    if(customerFind != undefined){
+        res.locals.customerToRespond = {
+        uuid: customerFind.uuid,
+        name: customerFind.name,
+        contact: {
+            email: customerFind.email,
+            phone: customerFind.phone
+        },
+        document: {
+            cpf: customerFind.cpf,
+            cnpj: customerFind.cnpj
+        },
+        createdAt: customerFind.createdAt.toISOString(),
+        updatedAt: customerFind.updatedAt.toISOString()
+        } 
+    } else {
+        res.locals.customerFindError = {
+            statusCode: '404',
+            message: 'Não Encontrado'
+        }
+    }
+    next();
+}
+
+const findAllCustomerSerializer: CustomersFindAllRequestHandler = (req, res, next) => {
+    const { customerToFindAll } = res.locals;
+    if(res.locals.customerToFindAll.length == 0){
+        res.locals.customerFindAllError = {
+            statusCode: '404',
+            message: 'Não Encontrado'
+        }
+    } else{
+        res.locals.customerToRespond = res.locals.customerToFindAll
+    }
+    next();
+}
+
 export {
-    createCustomerSerializer
+    createCustomerSerializer,
+    findAllCustomerSerializer,
+    findCustomerSerializer
 }
