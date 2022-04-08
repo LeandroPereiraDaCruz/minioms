@@ -1,9 +1,10 @@
-import { CREATED } from "http-status";
-import { persistCustomer } from "./customer-business";
+import { CREATED, NOT_FOUND, OK } from "http-status";
+import { paginationSerializer } from "../../util/serializer/pagination";
+import { getAllCustomers, getCustomerById, persistCustomer } from "./customer-business";
 import { createCustomerDeserializer } from "./customer-deserializer";
-import { createCustomerSerializer } from "./customer-serializer";
-import { CustomerCreationRequestHandler } from "./customer-type";
-import { createCustomerValidator } from "./customer-validator";
+import { createCustomerSerializer, findAllCustomersSerializer, findCustomerSerializer } from "./customer-serializer";
+import { CustomerCreationRequestHandler, CustomerFindAllRequestHandler, CustomerFindOneRequestHandler } from "./customer-type";
+import { createCustomerValidator, getCustomerValidator } from "./customer-validator";
 
 const createCustomer = (): CustomerCreationRequestHandler[] => {
     return [
@@ -15,6 +16,38 @@ const createCustomer = (): CustomerCreationRequestHandler[] => {
     ]
 }
 
+const findOneCustomer = (): CustomerFindOneRequestHandler[] => {
+    return [
+        getCustomerValidator(),
+        getCustomerById,
+        findCustomerSerializer,
+        (req, res) => {
+            if(res.locals.customerToRespond !== undefined){
+                res.status(OK).json(res.locals.customerToRespond);
+            }else {
+                res.status(NOT_FOUND).json();
+            }
+        }
+    ]
+}
+
+const findAllCustomers = (): CustomerFindAllRequestHandler[] => {
+    return [
+        paginationSerializer,
+        getAllCustomers,
+        findAllCustomersSerializer,
+        (req, res) => {
+            if(res.locals.customersToRespond.length > 0){
+                res.status(OK).json(res.locals.customersToRespond);
+            }else{
+                res.status(NOT_FOUND).json();
+            }
+        }
+    ];
+}
+
 export {
-    createCustomer
+    createCustomer,
+    findOneCustomer,
+    findAllCustomers
 };

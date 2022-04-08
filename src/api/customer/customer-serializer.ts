@@ -1,4 +1,4 @@
-import { CustomerCreationRequestHandler } from "./customer-type";
+import { CustomerCreationRequestHandler, CustomerFindAllRequestHandler, CustomerFindOneRequestHandler } from "./customer-type";
 
 const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next) => {
     const { customerCreated } = res.locals;
@@ -19,6 +19,57 @@ const createCustomerSerializer: CustomerCreationRequestHandler = (req, res, next
     next();
 }
 
+const findCustomerSerializer: CustomerFindOneRequestHandler = (req, res, next) => {
+    const { customerFind } = res.locals;
+    if (customerFind !== null) {
+        res.locals.customerToRespond = {
+            uuid: customerFind.uuid,
+            name: customerFind.name,
+            contact: {
+                email: customerFind.email,
+                phone: customerFind.phone
+            },
+            document: {
+                cpf: customerFind.cpf,
+                cnpj: customerFind.cnpj
+            },
+            createdAt: customerFind.createdAt.toISOString(),
+            updatedAt: customerFind.updatedAt.toISOString()
+        }
+    }
+    next();
+}
+
+const findAllCustomersSerializer: CustomerFindAllRequestHandler = (req, res, next) => {
+
+    const allCustomers = res.locals.customerFindAll;
+
+    res.locals.customersToRespond = [];
+
+    allCustomers.map((customer) => {
+        if (customer !== null) {
+            res.locals.customersToRespond.push(
+                {
+                    uuid: customer.uuid,
+                    name: customer.name,
+                    contact: {
+                        email: customer.email,
+                        phone: customer.phone
+                    },
+                    document: {
+                        cpf: customer.cpf,
+                        cnpj: customer.cnpj
+                    },
+                    createdAt: customer.createdAt.toISOString(),
+                    updatedAt: customer.updatedAt.toISOString()
+                })
+        }
+    });
+    next();
+}
+
 export {
-    createCustomerSerializer
+    createCustomerSerializer,
+    findCustomerSerializer,
+    findAllCustomersSerializer
 }
