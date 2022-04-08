@@ -34,6 +34,18 @@ const createCustomerValidator = () => {
     });
 };
 
+const findByIdCustomerValidator = () => {
+    return celebrate({
+        [Segments.PARAMS]: Joi.object().keys({
+            customerUuid: Joi
+                .string()
+                .trim()
+                .required()
+        })
+    });
+};
+
 export {
-    createCustomerValidator
+    createCustomerValidator,
+    findByIdCustomerValidator
 };

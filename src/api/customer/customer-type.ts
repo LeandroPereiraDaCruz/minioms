@@ -46,3 +46,28 @@ export type CustomerCreationRequestHandler = RequestHandler<
         customerToRespond: CustomerResponse
     }
 >;
+
+export type CustomerFindAllRequestHandler = RequestHandler<
+    { offset?:number, limit?: number }, // path params
+    CustomerResponse[], // response
+    {}, // request
+    {}, // query params
+    {
+        offset?: number,
+        limit?: number,
+        customersFound: CustomerAttributes[],
+        customerToRespond: CustomerResponse[]
+    }
+>;
+
+export type CustomerFindByIdRequestHandler = RequestHandler<
+    { customerUuid: string }, // path params
+    CustomerResponse, // response
+    {}, // request
+    {}, // query params
+    {
+        customerUuid: string,
+        customerFound: CustomerAttributes  | null,
+        customerToRespond: CustomerResponse
+    }
+>;

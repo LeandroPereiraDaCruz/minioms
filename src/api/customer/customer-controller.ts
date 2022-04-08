@@ -1,9 +1,9 @@
-import { CREATED } from "http-status";
+import { CREATED, FOUND } from "http-status";
 import { persistCustomer } from "./customer-business";
-import { createCustomerDeserializer } from "./customer-deserializer";
-import { createCustomerSerializer } from "./customer-serializer";
-import { CustomerCreationRequestHandler } from "./customer-type";
-import { createCustomerValidator } from "./customer-validator";
+import { createCustomerDeserializer, findAllIdCustomerDeserializer, findByIdCustomerDeserializer } from "./customer-deserializer";
+import { createCustomerSerializer, findAllCustomerSerializer, findByIdCustomerSerializer } from "./customer-serializer";
+import { CustomerCreationRequestHandler, CustomerFindAllRequestHandler, CustomerFindByIdRequestHandler } from "./customer-type";
+import { createCustomerValidator, findByIdCustomerValidator } from "./customer-validator";
 
 const createCustomer = (): CustomerCreationRequestHandler[] => {
     return [
@@ -15,6 +15,27 @@ const createCustomer = (): CustomerCreationRequestHandler[] => {
     ]
 }
 
+const findAllCustomer = (): CustomerFindAllRequestHandler[] => {
+    return [
+        findAllIdCustomerDeserializer,
+        findAllCustomer,
+        findAllCustomerSerializer,
+        (req, res) => { res.status(FOUND).json(res.locals.customerToRespond) }
+    ]
+}
+
+const findByIdCustomer = (): CustomerFindByIdRequestHandler[] => {
+    return [
+        findByIdCustomerValidator(),
+        findByIdCustomerDeserializer,
+        findByIdCustomer,
+        findByIdCustomerSerializer,
+        (req, res) => { res.status(FOUND).json(res.locals.customerToRespond) }
+    ]
+}
+
 export {
-    createCustomer
+    createCustomer,
+    findAllCustomer,
+    findByIdCustomer
 };
