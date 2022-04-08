@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "required": ["statusCode", "error", "message", "validation"],
+  "properties": {
+    "statusCode": {
+      "$id": "#/properties/statusCode",
+      "type": "integer",
+      "title": "The statusCode schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [400]
+    },
+    "error": {
+      "$id": "#/properties/error",
+      "type": "string",
+      "title": "The error schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": ["Bad Request"]
+    },
+    "message": {
+      "$id": "#/properties/message",
+      "type": "string",
+      "title": "The message schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": ["Validation failed"]
+    },
+    "validation": {
+      "$id": "#/properties/validation",
+      "type": "object",
+      "title": "The validation schema",
+      "description": "An explanation about the purpose of this instance.",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "$id": "#/properties/validation/properties/query",
+          "type": "object",
+          "title": "The query schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "source": "query",
+              "keys": ["limit"],
+              "message": "\"limit\" must be greater than or equal to 0"
+            }
+          ],
+          "required": ["source", "keys", "message"],
+          "properties": {
+            "source": {
+              "$id": "#/properties/validation/properties/query/properties/source",
+              "type": "string",
+              "title": "The source schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": ["query"]
+            },
+            "keys": {
+              "$id": "#/properties/validation/properties/query/properties/keys",
+              "type": "array",
+              "title": "The keys schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": [],
+              "examples": [["limit"]],
+              "additionalItems": true,
+              "items": {
+                "$id": "#/properties/validation/properties/query/properties/keys/items",
+                "anyOf": [
+                  {
+                    "$id": "#/properties/validation/properties/query/properties/keys/items/anyOf/0",
+                    "type": "string",
+                    "title": "The first anyOf schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": ["limit"]
+                  }
+                ]
+              }
+            },
+            "message": {
+              "$id": "#/properties/validation/properties/query/properties/message",
+              "type": "string",
+              "title": "The message schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": ["\"limit\" must be greater than or equal to 0"]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

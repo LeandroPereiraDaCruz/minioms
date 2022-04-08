@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "statusCode": 400,
+      "error": "Bad Request",
+      "message": "Validation failed",
+      "validation": {
+        "params": {
+          "source": "params",
+          "keys": ["id"],
+          "message": "\"id\" with value \"1\" fails to match the required pattern: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i"
+        }
+      }
+    }
+  ],
+  "required": ["statusCode", "error", "message", "validation"],
+  "properties": {
+    "statusCode": {
+      "$id": "#/properties/statusCode",
+      "type": "integer",
+      "title": "The statusCode schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [400]
+    },
+    "error": {
+      "$id": "#/properties/error",
+      "type": "string",
+      "title": "The error schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": ["Bad Request"]
+    },
+    "message": {
+      "$id": "#/properties/message",
+      "type": "string",
+      "title": "The message schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": ["Validation failed"]
+    },
+    "validation": {
+      "$id": "#/properties/validation",
+      "type": "object",
+      "title": "The validation schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [
+        {
+          "params": {
+            "source": "params",
+            "keys": ["id"],
+            "message": "\"id\" with value \"1\" fails to match the required pattern: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i"
+          }
+        }
+      ],
+      "required": ["params"],
+      "properties": {
+        "params": {
+          "$id": "#/properties/validation/properties/params",
+          "type": "object",
+          "title": "The params schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "source": "params",
+              "keys": ["id"],
+              "message": "\"id\" with value \"1\" fails to match the required pattern: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i"
+            }
+          ],
+          "required": ["source", "keys", "message"],
+          "properties": {
+            "source": {
+              "$id": "#/properties/validation/properties/params/properties/source",
+              "type": "string",
+              "title": "The source schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": ["params"]
+            },
+            "keys": {
+              "$id": "#/properties/validation/properties/params/properties/keys",
+              "type": "array",
+              "title": "The keys schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": [],
+              "examples": [["id"]],
+              "additionalItems": true,
+              "items": {
+                "$id": "#/properties/validation/properties/params/properties/keys/items",
+                "anyOf": [
+                  {
+                    "$id": "#/properties/validation/properties/params/properties/keys/items/anyOf/0",
+                    "type": "string",
+                    "title": "The first anyOf schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": ["id"]
+                  }
+                ]
+              }
+            },
+            "message": {
+              "$id": "#/properties/validation/properties/params/properties/message",
+              "type": "string",
+              "title": "The message schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "\"id\" with value \"1\" fails to match the required pattern: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i"
+              ]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

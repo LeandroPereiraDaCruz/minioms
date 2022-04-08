@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "required": ["meta", "records"],
+  "properties": {
+    "meta": {
+      "$id": "#/properties/meta",
+      "type": "object",
+      "required": ["version", "server", "recordCount", "limit", "offset"],
+      "properties": {
+        "version": {
+          "$id": "#/properties/meta/properties/version",
+          "type": "string"
+        },
+        "server": {
+          "$id": "#/properties/meta/properties/server",
+          "type": "string"
+        },
+        "recordCount": {
+          "$id": "#/properties/meta/properties/recordCount",
+          "type": "integer"
+        },
+        "limit": {
+          "$id": "#/properties/meta/properties/limit",
+          "type": "integer"
+        },
+        "offset": {
+          "$id": "#/properties/meta/properties/offset",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "records": {
+      "$id": "#/properties/records",
+      "type": "array",
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/records/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/records/items/anyOf/0",
+            "type": "object",
+            "required": [
+              "uuid",
+              "name",
+              "contact",
+              "document",
+              "createdAt",
+              "updatedAt"
+            ],
+            "properties": {
+              "uuid": {
+                "$id": "#/properties/records/items/anyOf/0/properties/uuid",
+                "type": "string"
+              },
+              "name": {
+                "$id": "#/properties/records/items/anyOf/0/properties/name",
+                "type": "string"
+              },
+              "contact": {
+                "$id": "#/properties/records/items/anyOf/0/properties/contact",
+                "type": "object",
+                "required": ["email", "phone"],
+                "properties": {
+                  "email": {
+                    "$id": "#/properties/records/items/anyOf/0/properties/contact/properties/email",
+                    "type": "string"
+                  },
+                  "phone": {
+                    "$id": "#/properties/records/items/anyOf/0/properties/contact/properties/phone",
+                    "type": "null"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "document": {
+                "$id": "#/properties/records/items/anyOf/0/properties/document",
+                "type": "object",
+                "required": ["cpf", "cnpj"],
+                "properties": {
+                  "cpf": {
+                    "$id": "#/properties/records/items/anyOf/0/properties/document/properties/cpf",
+                    "type": "null"
+                  },
+                  "cnpj": {
+                    "$id": "#/properties/records/items/anyOf/0/properties/document/properties/cnpj",
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "createdAt": {
+                "$id": "#/properties/records/items/anyOf/0/properties/createdAt",
+                "type": "string"
+              },
+              "updatedAt": {
+                "$id": "#/properties/records/items/anyOf/0/properties/updatedAt",
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}
