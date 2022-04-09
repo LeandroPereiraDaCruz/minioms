@@ -34,6 +34,23 @@ const createCustomerValidator = () => {
     });
 };
 
+const getCustomersAllValidator = () => {
+    return celebrate({
+        [Segments.QUERY]: Joi.object().keys({
+            offset: Joi.string(),
+            limit: Joi.string(),
+        }),
+    });
+};
+
+const getCustomerByIdValidator = () => {
+    return celebrate({
+      [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.string().guid().required(),
+      }),
+    });
+  };
+
 export {
-    createCustomerValidator
+    createCustomerValidator, getCustomersAllValidator, getCustomerByIdValidator
 };
